@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('SCM') {
       steps {
-        git(url: 'https://github.com/ayupazamat/cicd-pipeline.git', credentialsId: 'github-creds')
+        git(url: 'https://github.com/ayupazamat/cicd-pipeline.git', credentialsId: 'github-creds', branch: 'main')
       }
     }
 
