@@ -25,12 +25,28 @@ pipeline {
       }
     }
 
-    stage('Build docker simage') {
+    stage('Build docker image') {
       steps {
-        sh 'docker build -t mybuildimage  .'
+        sh 'docker build -t a3ukjke/epam-cicd  .'
       }
     }
+        stage('test echo') {
+          steps {
+        sh 'echo ${env.BUILD_NUMBER}'
+          }
+        }
 
+    stage('Build image') {
+      steps {
+        app = docker.build("a3ukjke/epam-cicd")
+      }
+    }
+    stage('Push image') {
+                                                  docker.withRegistry('https://registry.hub.docker.com', 'dockerhub_id') {
+                                                  app.push("${env.BUILD_NUMBER}")
+                                                  app.push("latest")
+                                                  }
+    }
 
   }
 }
