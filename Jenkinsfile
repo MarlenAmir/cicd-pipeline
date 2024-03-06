@@ -1,9 +1,11 @@
 pipeline {
+
   agent any
+
   stages {
-    stage('SCM') {
+    stage('') {
       steps {
-        git(url: 'https://github.com/ayupazamat/cicd-pipeline.git', credentialsId: 'github-creds', branch: 'main')
+        git branch: 'main', credentialsId: 'github-creds', url: 'https://github.com/ayupazamat/cicd-pipeline.git'
       }
     }
 
