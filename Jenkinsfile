@@ -17,5 +17,13 @@ pipeline {
       }
     }
 
+    stage('Test') {
+      steps {
+        sh '''chmod +x scripts.test.sh
+'''
+        sh './scripts/test.sh'
+      }
+    }
+
   }
 }
