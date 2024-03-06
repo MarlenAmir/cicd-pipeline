@@ -37,14 +37,10 @@ pipeline {
         registryCredential = 'dockerhub_id'
       }
       steps {
-        script {
-          docker.withRegistry('', registryCredential ){
-
-            dockerImage.push () }
-          }
-
-        }
+        sh 'docker tag mybuildimage a3ukjke/epam-cicd'
+        sh 'docker push a3ukjke/epam-cicd'
       }
-
     }
+
   }
+}
