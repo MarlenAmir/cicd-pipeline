@@ -25,7 +25,7 @@ pipeline {
       }
     }
 
-    stage('Build docker image') {
+    stage('Build docker simage') {
       steps {
         sh 'docker build -t mybuildimage  .'
       }
