@@ -37,9 +37,12 @@ pipeline {
         registryCredential = 'dockerhub_id'
       }
       steps {
-        sh 'docker login -u a3ukjke -p "0i9F5>ytA(07"'
-        sh 'docker tag mybuildimage a3ukjke/epam-cicd'
-        sh 'docker push a3ukjke/epam-cicd'
+        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub_id')
+
+        {
+        app.push("${env.BUILD_NUMBER}")
+        app.push("latest")
+}
       }
     }
 
