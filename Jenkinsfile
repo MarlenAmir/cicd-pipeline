@@ -31,20 +31,6 @@ pipeline {
       }
     }
 
-    stage('Docker publish') {
-      environment {
-        registry = 'a3ukjke/epam-cicd'
-        registryCredential = 'dockerhub_id'
-      }
-      steps {
-        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub_id')
-
-        {
-        app.push("${env.BUILD_NUMBER}")
-        app.push("latest")
-}
-      }
-    }
 
   }
 }
