@@ -1,10 +1,9 @@
 pipeline {
   agent any
   stages {
-    stage('Build') {
+    stage('SCM') {
       steps {
-        sh 'docker --version'
-        sh 'docker --version'
+        git(url: 'https://github.com/ayupazamat/cicd-pipeline.git', credentialsId: 'github-creds')
       }
     }
 
