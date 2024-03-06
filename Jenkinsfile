@@ -4,7 +4,6 @@ pipeline {
     stage('Checkout GIT') {
       steps {
         git(url: 'https://github.com/ayupazamat/cicd-pipeline.git', branch: 'main', credentialsId: 'github-creds')
-        sh 'docker --version'
       }
     }
 
@@ -27,6 +26,15 @@ pipeline {
         sh 'docker build -t a3ukjke/epam-cicd  .'
       }
     }
+
+    stage('Push docker image') {
+      steps {
+      	withCredentials([usernamePassword(credentialsId: 'dockerhub_id', passwordVariable: 'dockerhub_idPassword', usernameVariable: 'dockerhub_idUser')]) {
+        	sh "docker login -u ${env.dockerhub_idUser} -p ${env.dockerhub_idPassword}"
+          sh 'docker push a3ukjke/epam-cicd:latest'
+      }
+    }
+
 
   }
 }
