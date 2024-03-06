@@ -27,11 +27,6 @@ pipeline {
         sh 'docker build -t a3ukjke/epam-cicd  .'
       }
     }
-        stage('test echo') {
-          steps {
-        sh 'echo ${env.BUILD_NUMBER}'
-          }
-        }
 
   }
 }
