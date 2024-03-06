@@ -26,8 +26,12 @@ pipeline {
     }
 
     stage('Build docker image') {
+          environment {
+            registry = 'a3ukjke/epam-cicd'
+            registryCredential = 'dockerhub_id'
+          }
       steps {
-        sh 'docker build -t mybuildimage  .'
+        dockerImage = docker.build registry + ":$BUILD_NUMBER"
       }
     }
 
@@ -37,9 +41,8 @@ pipeline {
         registryCredential = 'dockerhub_id'
       }
       steps {
-        sh 'docker login -u a3ukjke -p 0i9F5>ytA(07'
-        sh 'docker tag mybuildimage a3ukjke/epam-cicd'
-        sh 'docker push a3ukjke/epam-cicd'
+        docker.withRegistry( '', registryCredential ){
+        dockerImage.push()}
       }
     }
 
