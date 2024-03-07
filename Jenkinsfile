@@ -27,17 +27,25 @@ pipeline {
       }
     }
 
-    stage('Push image to deockerhub') {
+    // stage('Push image to deockerhub') {
+    //   steps {
+    //     script {
+    //       docker.withRegistry('https://registry.hub.docker.com', 'dockerhub_id'){
+    //         sh 'docker push a3ukjke/epam-cicd:0.0.1'
+    //       }
+    //     }
+    //   }
+    // }
+
+    stage('Test docker image') {
       steps {
-        script {
-          docker.withRegistry('https://registry.hub.docker.com', 'dockerhub_id'){
-            sh 'docker login registry.hub.docker.com -u a3ukjke'
-            sh 'docker push a3ukjke/epam-cicd:0.0.1'
-          }
-        }
+                    // Build the Node.js app Docker image
+                    sh "docker build -t a3ukjke/epam-cicd:$BUILD_NUMBER ."
+                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin docker.io'                 
+                    sh 'docker push a3ukjke/epam-cicd:$BUILD_NUMBER'                 
+                    sh 'docker logout'
       }
     }
-
 
   }
 }
