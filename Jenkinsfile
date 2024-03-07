@@ -29,7 +29,7 @@ pipeline {
 
     stage('Test docker image') {
       environment {
-        DOCKERHUB_CREDENTIALS_PSW = credentials('dockerhub_id')
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub_id')
       }
       steps {
         sh "docker build -t a3ukjke/epam-cicd:$BUILD_NUMBER ."
