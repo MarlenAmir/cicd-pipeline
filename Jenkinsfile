@@ -27,15 +27,16 @@ pipeline {
       }
     }
 
-    stage('Push docker image') {
+    stage('Push image to deockerhub') {
       steps {
-      	withCredentials([usernamePassword(credentialsId: 'dockerhub_id', passwordVariable: 'dockerhub_idPassword', usernameVariable: 'dockerhub_idUser')]) {
-        	sh "docker login -u ${env.dockerhub_idUser} -p ${env.dockerhub_idPassword}"
-          sh 'docker push a3ukjke/epam-cicd:latest'
+        script {
+          docker.withRegistry('https://registry.hub.docker.com', 'dockerhub_id'){
+            sh 'docker push a3ukjke/epam-cicd'
+          }
+        }
       }
     }
 
 
   }
-}
 }
