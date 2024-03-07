@@ -27,7 +27,7 @@ pipeline {
       }
     }
 
-    stage('Test docker image') {
+    stage('Push docker image') {
       environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub_id')
       }
