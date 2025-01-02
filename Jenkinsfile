@@ -15,7 +15,7 @@ pipeline {
 
     stage('build docker image') {
       steps {
-        sh '''docker build -t mybuildimage .
+        sh '''docker build -t nodejs_image .
 '''
       }
     }
