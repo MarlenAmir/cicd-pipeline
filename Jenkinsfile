@@ -10,14 +10,13 @@ pipeline {
 
     stage('test') {
       steps {
-        sh 'sh \'./scripts/test.sh\''
+        sh './scripts/test.sh'
       }
     }
 
-    stage('build docker image ') {
+    stage('build docker image') {
       steps {
-        sh '''docker build -t mydocker_image .
-'''
+        sh 'docker build -t mydocker_image .'
       }
     }
 
@@ -30,9 +29,7 @@ pipeline {
             app.push("latest")
           }
         }
-
       }
     }
-
   }
 }
