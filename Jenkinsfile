@@ -3,34 +3,20 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh '''        sh \'chmod +x scripts/build.sh\'             
-
-
-
-
-   sh 
-
-
-
-
-
-
-
-
-
-  \'scripts/build.sh\''''
+        sh 'sh \'./scripts/build.sh\''
       }
     }
 
     stage('test') {
       steps {
-        sh './scripts/test.sh'
+        sh 'sh \'./scripts/test.sh\''
       }
     }
 
-    stage('build docker image') {
+    stage('build docker image ') {
       steps {
-        sh 'docker build -t my_image .'
+        sh '''docker build -t my_image .
+'''
       }
     }
 
@@ -46,6 +32,8 @@ pipeline {
 
       }
     }
+    
 
   }
 }
+
