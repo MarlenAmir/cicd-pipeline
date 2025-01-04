@@ -25,7 +25,7 @@ pipeline {
       steps {
         script {
           docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_creds_id') {
-            def app = docker.build("my_image:${env.BUILD_NUMBER}")
+            def app = docker.build("mydocker_image:${env.BUILD_NUMBER}")
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
           }
