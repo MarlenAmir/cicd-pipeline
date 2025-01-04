@@ -16,7 +16,7 @@ pipeline {
 
     stage('build docker image') {
       steps {
-        sh 'docker build -t mydocker_image .'
+        sh 'docker build -t marlenamir_docker_image .'
       }
     }
 
@@ -29,7 +29,9 @@ pipeline {
             app.push("latest")
           }
         }
+
       }
     }
+
   }
 }
