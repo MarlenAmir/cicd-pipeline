@@ -28,16 +28,22 @@ pipeline {
     }
 
     stage('Push docker image') {
-      environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub_id')
-      }
       steps {
-        sh "docker build -t a3ukjke/epam-cicd:$BUILD_NUMBER ."
-        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin docker.io'
-        sh 'docker push a3ukjke/epam-cicd:$BUILD_NUMBER'
-        sh 'docker logout'
+        script {
+      // Используем ваш репозиторий на Docker Hub
+          docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_creds_id') {
+        // Собираем образ с тегом, включающим BUILD_NUMBER
+            def app = docker.build("amirmarlen7/marlenamir_docker_image:${env.BUILD_NUMBER}")
+        
+        // Пушим образ с BUILD_NUMBER
+            app.push("${env.BUILD_NUMBER}")
+        
+        // Пушим образ с тегом "latest"
+            app.push("latest")
       }
     }
+  }
+}
 
   }
 }
